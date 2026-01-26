@@ -223,7 +223,10 @@ def main():
     correlation_result = analyze_correlation(df)
     
     # 5. 获取指定日期范围内达标股票
-    qualified_stocks = get_qualified_stocks(df, '2026-01-15', '2026-01-23')
+    # 动态计算日期：结束时间为当前日期，开始时间为10天前
+    end_date = datetime.now().strftime('%Y-%m-%d')
+    start_date = (datetime.now() - pd.Timedelta(days=10)).strftime('%Y-%m-%d')
+    qualified_stocks = get_qualified_stocks(df, start_date, end_date)
     
     # 保存结果
     output_dir = "output"
